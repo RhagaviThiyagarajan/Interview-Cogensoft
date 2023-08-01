@@ -22,7 +22,7 @@ export default App;
 
 
 
-//2)Promise.all polyfill
+2)Promise.all polyfill
 
 if(!Promise.all)
 {
@@ -75,24 +75,27 @@ Promise.all([promise1,promise2])
 
 
 
-// //3. async function main() {
-  // try {
-  // const name = await getName();
-  // console.log(`Hello ${name}!`);
-  // const age = await getAge(name);
-  // const drink = age &lt; 10 ? &quot;milk&quot; : &quot;coke&quot;;
-  // console.log(`Have a ${drink}.`);
-  // const child = age &lt; 10;
-  // return child;
-  // } catch (e) {
-  // console.log(&#39;Error&#39;)
-  // }
-  // return null;
-  // }
-  // Rewrite above function without using async await
+3. Try writing the code without using async and await
+ async function main() {
+  
+    try {
+ const name = await getName();
+ console.log(`Hello ${name}!`);
+ const age = await getAge(name);
+ const drink = age &lt; 10 ? &quot;milk&quot; : &quot;coke&quot;;
+ console.log(`Have a ${drink}.`);
+ const child = age &lt; 10;
+ return child;
+ } catch (e) {
+ console.log(&#39;Error&#39;)
+ }
+ return null;
+ }
+ Rewrite above function without using async await
 
 
 
+  answers-
   function main()
   {
 
@@ -117,11 +120,11 @@ Promise.all([promise1,promise2])
 
 
 
-  4)//
+  4)  Question-
   //Flatten following array without using array.flat
 // [1,2,[3,4], [5, [6, 7,[8,[9]]]]] into -&gt; [1,2,3,4,5,6,7,8,9]
 
-function flattenedArray(values)
+answer-function flattenedArray(values)
 {
 
 
@@ -139,7 +142,7 @@ function flattenedArray(values)
 
 
 
-  //5)//
+  5)Question-
 
 
   const subscriptions={};
