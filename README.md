@@ -1,70 +1,168 @@
-# Getting Started with Create React App
+1)Curry function sum(1)(2)(3)()
+//- &gt; should return 6
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+answers-function App(num) {
+  let sum = num;
 
-## Available Scripts
+  function AddNext(nextNum) {
+    if (typeof nextNum !== "number") {
+      return sum;
+    }
 
-In the project directory, you can run:
+    sum += nextNum;
+    return AddNext;
+  }
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  return AddNext;
+}
+console.log(App(1)(2)(3));
+export default App;
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+//2)Promise.all polyfill
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+if(!Promise.all)
+{
+  Promise.all=function(promises)
+  {
+    return new Promise(function(resolve,reject)
+    {
+      if(!Array.isArray(promises))
+      {
+        return reject(new TypeError('Promises must be resolved'))
+      }
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+      let resolvedCount=0;
+      const results=new Array(promises.length);
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+      promises.forEach((promise,index)={
+Promise.resolve((promise)).then((result)=>{
+  results[index]=result;
+  resolvedCount++;
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+  if(resolvedCount===promises.length)
+  {
+    resolve(results);
+  }
+}).catch(reject);
+      });
+    });
+  };
+}
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+const promise1 = Promise.resolve(1);
+const promise2 = new Promise((resolve) => setTimeout(() => resolve(2), 1000));
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+Promise.all([promise1,promise2])
+.then((results)=>{
+  console.log(results);
+}).catch((error)=>{
+  console.log(error);
+});
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+// //3. async function main() {
+  // try {
+  // const name = await getName();
+  // console.log(`Hello ${name}!`);
+  // const age = await getAge(name);
+  // const drink = age &lt; 10 ? &quot;milk&quot; : &quot;coke&quot;;
+  // console.log(`Have a ${drink}.`);
+  // const child = age &lt; 10;
+  // return child;
+  // } catch (e) {
+  // console.log(&#39;Error&#39;)
+  // }
+  // return null;
+  // }
+  // Rewrite above function without using async await
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+  function main()
+  {
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    return getName().then(function(name)
+    {
+      console.log(`hello ${name}`);
+      return getAge(name);
+    })
+.then(function(age)
+{
+  const drink=age<10 ? 'milk':'coke';
+  console.log(`have a ${drink}`);
+  const child=age<10;
+  return child;
+}).catch(function(e)
+{
+  console.log('error');
+  return null;
+});
+  }
+
+
+
+
+  4)//
+  //Flatten following array without using array.flat
+// [1,2,[3,4], [5, [6, 7,[8,[9]]]]] into -&gt; [1,2,3,4,5,6,7,8,9]
+
+function flattenedArray(values)
+{
+
+
+  var flattenArray=[];
+  values.forEach((element)=>
+  {
+    flattenArray.push(...flattenedArray(element))
+  } else {
+    flattenArray.push(element);
+  })
+
+  const nestedArray= [1,2,[3,4], [5, [6, 7,[8,[9]]]]] ;
+  const flattenedNewArray=flattenedArray(values);
+  console.log(flattenedNewArray);
+
+
+
+  //5)//
+
+
+  const subscriptions={};
+  function subscribe(event,callback)
+
+{
+  if(!subscription[event])
+  {
+    subscription[event]=[];
+  }
+  subscription[event].push(callback);
+}
+
+
+
+
+
+
+
+  subscribe('event1',function(value)
+  {
+    console.log('subscriber1:',value);
+  })
+
+
+
